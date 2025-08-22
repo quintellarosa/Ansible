@@ -1,0 +1,237 @@
+---
+- hosts:    KubernetesMaster
+  become:   yes
+
+  tasks:
+
+  # - name: Update package cache
+  #   package:
+  #     update_cache: yes
+
+  # - name: Open port 6443 for Kubernetes API server
+  #   ansible.posix.firewalld:
+  #     port:       6443/tcp
+  #     state:      enabled
+  #     permanent:  true
+  #     offline:    true
+      
+  # - name: Open ports 2379-2380 for Kubernetes etcd server client API
+  #   ansible.posix.firewalld:
+  #     port:       2379-2380/tcp
+  #     state:      enabled
+  #     permanent:  true
+  #     offline:    true
+      
+  # - name: Open port 10250 for Kubelet API
+  #   ansible.posix.firewalld:
+  #     port:       10250/tcp
+  #     state:      enabled
+  #     permanent:  true
+  #     offline:    true
+
+  # - name: Open port 10256 for kube-proxy
+  #   ansible.posix.firewalld:
+  #     port:       10259/tcp
+  #     state:      enabled
+  #     permanent:  true
+  #     offline:    true
+      
+  # - name: Open port 10257 for kube-controller-manager
+  #   ansible.posix.firewalld:
+  #     port:       10259/tcp
+  #     state:      enabled
+  #     permanent:  true
+  #     offline:    true
+
+  # - name: Open port 10259 for kube-scheduler
+  #   ansible.posix.firewalld:
+  #     port:       10259/tcp
+  #     state:      enabled
+  #     permanent:  true
+  #     offline:    true
+
+  # - name: Open ports 30000-32767 for NodePort Services (TCP)
+  #   ansible.posix.firewalld:
+  #     port:       2379-2380/tcp
+  #     state:      enabled
+  #     permanent:  true
+  #     offline:    true
+
+  # - name: Open ports 30000-32767 for NodePort Services (UDP)
+  #   ansible.posix.firewalld:
+  #     port:       2379-2380/udp
+  #     state:      enabled
+  #     permanent:  true
+  #     offline:    true
+  #     immediate:  true
+
+  # - name: Disable ZRAM
+  #   systemd_service:
+  #     name: swap-create@zram0
+  #     state: stopped
+  #     enabled: false
+
+  # - name: Remove ZRAM
+  #   package:
+  #     name:   zram-generator-defaults
+  #     state:  absent
+    
+  # - name: Install iptables, iproute-tc on RedHat-based Linux
+  #   package:
+  #     name:   "{{ item }}"
+  #     state:  present
+  #   loop:
+  #     - iptables
+  #     - iproute-tc
+  #   when: ansible_os_family == "RedHat"
+
+  # - name: Load the overlay and bridge filter filter modules
+  #   modprobe:
+  #     name: "{{ item }}"
+  #     state: present
+  #   loop:
+  #     - overlay
+  #     - br_netfilter
+  #   when: ansible_os_family == "RedHat"
+
+  # - name: Load the overlay and bridge filter filter modules
+  #   modprobe:
+  #     name: "{{ item }}"
+  #     state: present
+  #   loop:
+  #     - overlay
+  #     - br_netfilter
+  #   when: ansible_os_family == "RedHat"
+
+  # - name: Add required sysctl parameters and persist
+  #   copy:
+  #     dest: "/etc/sysctl.d/k8s.conf"
+  #     content: |
+  #       net.bridge.bridge-nf-call-iptables  = 1
+  #       net.bridge.bridge-nf-call-ip6tables = 1
+  #       net.ipv4.ip_forward                 = 1
+  #   when: ansible_os_family == "RedHat"
+
+  # - name: Apply sysctl parameters without a reboot
+  #   command: sysctl --system
+  #   when: ansible_os_family == "RedHat"
+
+  # - name: Install Docker on RedHat-based Linux
+  #   package:
+  #     name:   "{{ item }}"
+  #     state:  present
+  #   loop:
+  #     - docker
+  #     - docker-cli
+  #     - containerd
+  #     - docker-compose
+  #     - docker-compose-switch
+  #     - docker-buildx
+  #     - moby-engine
+  #   when: ansible_os_family == "RedHat"
+
+  # - name: Enable containerd on RedHat-based Linux
+  #   service:
+  #     name:    containerd
+  #     state:   started
+  #     enabled: yes
+  #   when: ansible_os_family == "RedHat"
+
+  # - name: Enable docker on RedHat-based Linux
+  #   service:
+  #     name:    docker
+  #     state:   started
+  #     enabled: yes
+  #   when: ansible_os_family == "RedHat"
+
+  # - name: Install Docker on Debian-based Linux
+  #   apt:
+  #     name: docker.io
+  #     state: present
+  #   when: ansible_os_family == "Debian"
+
+  # - name: Create a directory for containerd config
+  #   file:
+  #     path: /etc/containerd
+  #     state: directory
+  #   when: ansible_os_family == "RedHat"
+
+  # - name: Create a default configuration file for containerd
+  #   command: "containerd config default > /etc/containerd/config.toml"
+  #   when: ansible_os_family == "RedHat"
+
+  # - name: Restart the containerd service to apply the changes
+  #   service:
+  #     name:    containerd.service
+  #     state:   restarted
+  #     enabled: yes
+  #   when: ansible_os_family == "RedHat"
+
+  # - name: Update the SystemdCgroup directive by setting it to true
+  #   replace:
+  #     path: /etc/containerd/config.toml
+  #     regexp: '(\s+)SystemdCgroup = false(\s+.*)?$'
+  #     replace: '\1SystemdCgroup = true\2'
+  #   when: ansible_os_family == "RedHat"
+
+  # - name: Install kubeadm, kubelet, and kubectl
+  #   package:
+  #     name: "{{ item }}"
+  #     state: present
+  #   loop:
+  #     - kubernetes1.33-kubeadm-1.33.3-1.fc42.x86_64 # kubeadm
+  #     - kubernetes1.33-1.33.3-1.fc42.x86_64         # kubelet
+  #     - kubernetes1.33-client-1.33.3-1.fc42.x86_64  # kubectl
+  
+  # - name: Enable kubelet on RedHat-based Linux
+  #   service:
+  #     name:    kubelet
+  #     state:   started
+  #     enabled: yes
+  #   when: ansible_os_family == "RedHat"
+
+  # - name: Initialize Kubernetes master
+  #   command: "kubeadm init --pod-network-cidr=10.10.0.0/16"
+  #   register: kubeadm_output
+  #   ignore_errors: yes
+
+  - name: Create the .kube directory
+    file:
+      path: /home/quintellarosa/.kube
+      state: directory
+
+  - name: Copy Kubernetes config file to the current user
+    copy:
+      remote_src: true
+      src: /etc/kubernetes/admin.conf 
+      dest: /home/quintellarosa/.kube/config
+      owner: quintellarosa
+      group: quintellarosa
+
+  - name: Allow the control plane to also run pods for applications
+    command: "kubectl taint nodes --all node-role.kubernetes.io/control-plane:NoSchedule-"
+    become: yes
+    become_user: quintellarosa
+    ignore_errors: yes
+
+  - name: Deploy the Calico operator
+    command: kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.28.0/manifests/tigera-operator.yaml
+  #   when: "'calico' in kubeadm_output.stdout"
+
+  # - name: Download Calico’s custom-resources file 
+  #   command: curl https://raw.githubusercontent.com/projectcalico/calico/v3.28.0/manifests/custom-resources.yaml -O
+
+  # - name: Update the CIDR defined in the custom-resources file to match the pod's network.
+  #   replace:
+  #     path: ./custom-resources.yaml
+  #     regexp: '(\s+)cidr: 192\.168\.0\.0\/16/(\s+.*)?$'
+  #     replace: '\1cidr: 10.10.0.0\/16\2'
+
+  # - name: Create resources defined in the Calico custom resource YAML file.
+  #   command: kubectl create -f custom-resources.yaml
+
+  # - name: Download rancher.io/local-path storage class
+  #   command: kubectl apply -f https://raw.githubusercontent.com/rancher/local-path-provisioner/master/deploy/local-path-storage.yaml
+
+  # - name: Make this storage class (local-path) the default
+  #   command: "kubectl patch storageclass local-path -p '{\"metadata\": {\"annotations\":{\"storageclass.kubernetes.io/is-default-class\":\"true\"}}}'"
