@@ -1,0 +1,29 @@
+---
+- hosts:       webservers
+  become:      yes
+  tasks:
+
+  - name: Install Nginx
+    ansible.builtin.package:
+      name:   nginx
+      state:  present
+
+  - name: Enable Nginx
+    ansible.builtin.service:
+      name:    nginx
+      state:   started
+      enabled: yes
+
+  - name: Open HTTP port
+    ansible.posix.firewalld:
+      state:     enabled
+      permanent: true
+      immediate: true
+      service:   http
+
+  - name: Open HTTPS port
+    ansible.posix.firewalld:
+      state:     enabled
+      permanent: true
+      immediate: true
+      service:   https

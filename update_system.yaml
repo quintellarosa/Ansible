@@ -1,0 +1,30 @@
+---
+- hosts:        all
+  become:       yes
+  gather_facts: true
+
+  tasks:
+    - name: Update package cache (for Debian-based systems)
+      apt:
+        update_cache: true
+      when: ansible_os_family == "Debian"
+
+    - name: Update package cache (Red Hat-based)
+      dnf:
+        update_cache: yes
+      when: ansible_os_family == "RedHat"
+
+    - name: Perform full system upgrade
+      package:
+        name: "*"
+        state: latest
+
+    - name: Check if a reboot is required after updates
+      stat:
+        path: /var/run/reboot-required
+      register: reboot_required_file
+      when: ansible_os_family == "Debian"
+
+    - name: Reboot if required
+      reboot:
+      when: reboot_required_file.stat.exists is defined and reboot_required_file.stat.exists
