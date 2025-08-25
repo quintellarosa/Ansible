@@ -1,0 +1,17 @@
+- name: Open ports for Kubernetes
+  become: yes
+  ansible.posix.firewalld:
+    port:       "{{ item }}"
+    state:      enabled
+    permanent:  true
+    offline:    true
+    immediate:  true
+  loop:
+    - 6443/tcp        # Kubernetes API server
+    - 2379-2380/tcp   # etcd server client API
+    - 10250/tcp       # Kubelet API
+    - 10256/tcp       # kube-proxy
+    - 10257/tcp       # kube-controller-manager
+    - 10259/tcp       # kube-scheduler
+    - 30000-32767/tcp # NodePort Services (TCP)
+    - 30000-32767/udp # NodePort Services (UDP)
