@@ -1,0 +1,5 @@
+- name:
+  ansible.builtin.package:
+    name: google-chrome-stable
+    state: latest
+  become: yes
