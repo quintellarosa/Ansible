@@ -2,17 +2,17 @@
 - include_tasks: firewalld.yml
 - include_tasks: disable_swap.yml
 - include_tasks: selinux.yml
-- include_tasks: install_iptables.yml
-- include_tasks: load_kernel_modules.yml
-- include_tasks: sysctl.yml
-- include_tasks: disable_ipv6.yml
-- include_tasks: install_docker.yml
-- include_tasks: install_containerd.yml
-- include_tasks: install_kubeadm.yml
-- include_tasks: configure_cri.yml
-- include_tasks: configure_docker.yml
-- include_tasks: start_container_runtime.yml
-- include_tasks: verify_container_runtime.yml
-- include_tasks: install_kubectl.yml
-- include_tasks: install_kubelet.yml
-- include_tasks: enable_kubelet.yml
+# - include_tasks: install_iptables.yml
+# - include_tasks: load_kernel_modules.yml
+# - include_tasks: sysctl.yml
+# - include_tasks: disable_ipv6.yml
+# - include_tasks: install_docker.yml
+# - include_tasks: install_containerd.yml
+# - include_tasks: install_kubeadm.yml
+# - include_tasks: configure_cri.yml
+# - include_tasks: configure_docker.yml
+# - include_tasks: start_container_runtime.yml
+# - include_tasks: verify_container_runtime.yml
+# - include_tasks: install_kubectl.yml
+# - include_tasks: install_kubelet.yml
+# - include_tasks: enable_kubelet.yml
