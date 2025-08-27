@@ -1,4 +1,8 @@
-[local]
-localhost
+[OracleLinux]
+oracle.quintellarosa.home
 
+[Ubuntu]
+ubuntu.quintellarosa.home
 
+[Fedora]
+fedora.quintellarosa.home

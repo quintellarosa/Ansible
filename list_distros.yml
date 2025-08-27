@@ -1,0 +1,12 @@
+---
+- hosts: 
+  - OracleLinux
+  - Ubuntu
+  - Fedora  
+  gather_facts: yes
+  become: yes
+  tasks:
+  
+  - name: Print the ansible_distribution fact
+    ansible.builtin.debug:
+      var: ansible_distribution

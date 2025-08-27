@@ -1,2 +1,11 @@
 [localhost]
-thinkcentre.quintellarosa.home
+localhost
+
+[OracleLinux]
+oracle.quintellarosa.home
+
+[Ubuntu]
+ubuntu.quintellarosa.home
+
+[Fedora]
+fedora.quintellarosa.home

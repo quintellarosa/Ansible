@@ -1,21 +1,34 @@
-- name: Install required packages
+---
+- name: Install Virtualization on Fedora
+  become: true
+  dnf:
+    name: "@virtualization"
+    state: present
+  when: ansible_distribution == "Fedora"
+
+
+- name: Install Virtualization on Oracle linux
   become: true
   dnf:
     name: "{{ item }}"
     state: present
   loop:
-    - libvirt-daemon-driver-network
-    - libvirt-daemon-driver-nodedev
-    - libvirt-daemon-driver-qemu
-    - libvirt-daemon-driver-storage-core
-    - qemu-audio-spice
-    - qemu-char-spice
-    - qemu-device-display-qxl
-    - qemu-device-display-virtio-gpu
-    - qemu-device-display-virtio-vga
-    - qemu-device-usb-redirect
-    - qemu-system-x86-core
+    - "@Virtualization Host"
+    - "@Virtualization Client"
+    - virt-install
+    - virt-viewer
+  when: ansible_distribution == "OracleLinux"
 
-#     sudo systemctl --now enable virtnetworkd.service
-# sudo systemctl --now enable virtqemud.service
-  
+
+- name: Install Virtualization on Debian based systems
+  become: true
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - qemu-kvm                            # Installation of the KVM module and tools.
+    - libvirt-daemon-system               # Handle virtualization management services.
+    - libvirt-clients                     # Handle virtualization management services.
+    - bridge-utils                        # Helps configure networking for VMs.
+    - virt-manager                        # a GUI to manage virtual machines. 
+  when: ansible_distribution == "Ubuntu"
