@@ -1,0 +1,7 @@
+- name: Remove user from libvirt
+  become: yes
+  user:
+    name: "quintellarosa"
+    remove: true
+    groups: libvirt
+    append: yes

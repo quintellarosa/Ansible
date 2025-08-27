@@ -1,0 +1,6 @@
+---
+- include_tasks: stop_daemons.yml
+- include_tasks: remove_users_from_groups.yml
+- include_tasks: remove_packages.yml
+
+

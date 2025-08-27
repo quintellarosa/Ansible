@@ -1,0 +1,34 @@
+---
+- name: Remove Virtualization on Fedora
+  become: true
+  dnf:
+    name: "@virtualization"
+    state: absent
+  when: ansible_distribution == "Fedora"
+
+
+- name: Remove Virtualization on Oracle linux
+  become: true
+  dnf:
+    name: "{{ item }}"
+    state: absent
+  loop:
+    - "@Virtualization Host"
+    - "@Virtualization Client"
+    - virt-install
+    - virt-viewer
+  when: ansible_distribution == "OracleLinux"
+
+
+- name: Remove Virtualization on Debian based systems
+  become: true
+  apt:
+    name: "{{ item }}"
+    state: absent
+  loop:
+    - qemu-kvm                            # Installation of the KVM module and tools.
+    - libvirt-daemon-system               # Handle virtualization management services.
+    - libvirt-clients                     # Handle virtualization management services.
+    - bridge-utils                        # Helps configure networking for VMs.
+    - virt-manager                        # a GUI to manage virtual machines. 
+  when: ansible_distribution == "Ubuntu"

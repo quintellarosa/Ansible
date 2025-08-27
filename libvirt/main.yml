@@ -4,4 +4,4 @@
   - OracleLinux
   
   roles: 
-  - install
+  - uninstall

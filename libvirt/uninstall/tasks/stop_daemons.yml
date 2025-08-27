@@ -1,0 +1,7 @@
+---
+- name: Stop and disable libvirtd
+  become: true
+  service: 
+    name: libvirtd
+    state: stopped
+    enabled: false
