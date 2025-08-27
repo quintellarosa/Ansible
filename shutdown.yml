@@ -1,0 +1,11 @@
+---
+- hosts: 
+  - OracleLinux
+  - Ubuntu
+  - Fedora  
+  gather_facts: false
+  become: yes
+  tasks:
+  
+  - name: Shutdown guests
+    community.general.shutdown:
