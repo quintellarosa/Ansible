@@ -1,7 +1,5 @@
 - hosts: 
-  - Fedora
-  - Ubuntu
-  - OracleLinux
-  
+  - localhost
+
   roles: 
-  - uninstall
+  - install
