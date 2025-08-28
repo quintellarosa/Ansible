@@ -1,4 +1,4 @@
-- name: Set SELinux to permissive mode
+- name: Set Security-Enhanced Linux to permissive mode
   become: yes
   ansible.posix.selinux:
     policy: targeted

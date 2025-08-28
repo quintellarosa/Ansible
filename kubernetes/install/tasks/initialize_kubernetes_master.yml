@@ -1,0 +1,25 @@
+    - name: Initialize Kubernetes master
+      become: yes
+      command: kubeadm init --pod-network-cidr=10.244.0.0/16
+      register: kubeadm_output
+      ignore_errors: yes
+
+    - name: Create the .kube directory
+      remote_user: "quintellarosa"
+      file:
+        path: /home/quintellarosa/.kube
+        state: directory
+
+    - name: Copy Kubernetes config file to the current user
+      become: yes
+      copy:
+        remote_src: true
+        src: /etc/kubernetes/admin.conf 
+        dest: /home/quintellarosa/.kube/config
+        owner: quintellarosa
+        group: quintellarosa
+
+
+    - name: Install Calico network plugin
+      remote_user: "quintellarosa"
+      command: kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml

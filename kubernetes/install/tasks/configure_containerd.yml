@@ -1,0 +1,19 @@
+- name: Create a directory for containerd config
+  become: yes
+  ansible.builtin.file:
+    path: /etc/containerd
+    state: directory
+  when: ansible_distribution == "Fedora"
+
+- name: Create a default configuration file for containerd
+  become: yes
+  ansible.builtin.shell: "containerd config default > /etc/containerd/config.toml"
+  when: ansible_distribution == "Fedora"
+
+- name: Restart the containerd service to apply the changes
+  become: yes
+  ansible.builtin.service:
+    name:    containerd.service
+    state:   restarted
+    enabled: yes
+  when: ansible_distribution == "Fedora"

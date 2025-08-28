@@ -1,4 +1,11 @@
-[Kubernetes]
-thinkcentre.quintellarosa.home
+[localhost]
+localhost
 
+[OracleLinux]
+oracle.quintellarosa.home
 
+[Ubuntu]
+ubuntu.quintellarosa.home
+
+[Fedora]
+fedora.quintellarosa.home

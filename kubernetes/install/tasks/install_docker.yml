@@ -1,0 +1,56 @@
+# - name: Add Docker repository on Fedora
+#   become: yes
+#   ansible.builtin.yum_repository:
+#     name: docker-ce-stable
+#     description: Docker CE Stable - $basearch
+#     baseurl: https://download.docker.com/linux/fedora/$releasever/$basearch/stable
+#     enabled: yes
+#     gpgcheck: yes
+#     gpgkey: https://download.docker.com/linux/fedora/gpg
+#     state: present
+#   when: ansible_distribution == "OracleLinux"
+
+- name: Install Docker on Fedora
+  become: yes
+  ansible.builtin.package:
+    name:   "{{ item }}"
+    state:  present
+  loop:
+    - docker
+    - docker-cli 
+    - docker-buildx
+    - docker-compose 
+    - docker-compose-switch
+    - containerd
+    - moby-engine
+  when: ansible_distribution == "Fedora"
+
+- name: Enable containerd on Fedora
+  become: yes
+  ansible.builtin.service:
+    name:    containerd
+    state:   started
+    enabled: yes
+  when: ansible_distribution == "Fedora"
+
+- name: Enable docker on Fedora
+  become: yes
+  ansible.builtin.service:
+    name:    docker
+    state:   started
+    enabled: yes
+  when: ansible_distribution == "Fedora"
+
+# - name: Add Docker repository on Debian-based Linux
+#   become: yes
+#   ansible.builtin.apt_repository:
+#     repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} stable
+#     state: present
+#     filename: docker
+#     update_cache: yes
+#     validate_certs: yes
+#     codename: "{{ ansible_lsb.codename }}"
+#     arch: amd64
+#     keyserver: keyserver.ubuntu.com
+#     key: 0EBFCD88
+#   when: ansible_os_family == "Debian"

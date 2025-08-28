@@ -1,0 +1,9 @@
+- name: Install iptables, iproute-tc on RedHat-based Linux
+  become: yes
+  ansible.builtin.package:
+    name:   "{{ item }}"
+    state:  present
+  loop:
+    - iptables
+    - iproute-tc
+  when: ansible_os_family == "RedHat"

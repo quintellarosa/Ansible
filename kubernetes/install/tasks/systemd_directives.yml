@@ -1,0 +1,7 @@
+  - name: Update the SystemdCgroup directive by setting it to true
+    become: yes
+    ansible.builtin.replace:
+      path: /etc/containerd/config.toml
+      regexp: '(\s+)SystemdCgroup = false(\s+.*)?$'
+      replace: '\1SystemdCgroup = true\2'
+    when: ansible_os_family == "RedHat"

@@ -8,3 +8,10 @@
     regexp: '^([^#].*\s+swap\s+)'
     replace: '# \1'
   become: yes
+
+- name: Remove ZRAM on Fedora
+  become: yes
+  ansible.builtin.package:
+    name:   zram-generator-defaults
+    state:  absent
+  #when: ansible_distribution == "Fedora"

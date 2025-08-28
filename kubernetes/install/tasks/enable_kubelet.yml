@@ -1,0 +1,7 @@
+  - name: Enable kubelet on RedHat-based Linux
+    become: yes
+    service:
+      name:    kubelet
+      state:   started
+      enabled: yes
+    when: ansible_os_family == "RedHat"
