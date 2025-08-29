@@ -1,3 +1,0 @@
-- hosts: OracleLinux
-  roles: 
-  - install

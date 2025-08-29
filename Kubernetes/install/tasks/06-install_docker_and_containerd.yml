@@ -1,0 +1,132 @@
+- name: Remove existing Docker installation files on Fedora
+  become: yes
+  ansible.builtin.dnf:
+    name: "{{ item }}"
+    state: absent
+  loop:
+    - docker
+    - docker-client
+    - docker-client-latest
+    - docker-common
+    - docker-latest
+    - docker-latest-logrotate
+    - docker-logrotate
+    - docker-selinux 
+    - docker-engine-selinux    
+    - docker-engine
+  when: ansible_distribution == "Fedora"
+
+- name: Remove existing Docker installation files on RedHat/Oracle Linux
+  become: yes
+  ansible.builtin.dnf:
+    name: "{{ item }}"
+    state: absent
+  loop:
+    - docker
+    - docker-client
+    - docker-client-latest
+    - docker-common
+    - docker-latest
+    - docker-latest-logrotate
+    - docker-logrotate
+    - docker-engine
+    - podman
+    - runc
+  when: ansible_distribution in ["RedHat", "OracleLinux"]
+
+- name: Install DNF core plugins on RedHat-based Linux
+  become: yes
+  ansible.builtin.dnf:
+    name: dnf-plugins-core
+    state: present
+  when: ansible_os_family == "RedHat"
+
+- name: Add Docker repository on Fedora
+  become: yes
+  ansible.builtin.yum_repository:
+    name: docker-ce-stable
+    description: Docker CE Stable - $basearch
+    baseurl: https://download.docker.com/linux/fedora/$releasever/$basearch/stable
+    enabled: yes
+    gpgcheck: yes
+    gpgkey: https://download.docker.com/linux/fedora/gpg
+    state: present
+  when: ansible_distribution == "Fedora"
+
+- name: Add Docker repository on RedHat/Oracle Linux
+  become: yes
+  ansible.builtin.yum_repository:
+    name: docker-ce-stable
+    description: Docker CE Stable - $basearch
+    baseurl: https://download.docker.com/linux/rhel/$releasever/$basearch/stable
+    enabled: yes
+    gpgcheck: yes
+    gpgkey: https://download.docker.com/linux/rhel/gpg
+    state: present
+  when: ansible_distribution in ["RedHat", "OracleLinux"]
+
+- name: Change ${releasever} to 9 for Oracle Linux 10
+  become: yes
+  ansible.builtin.replace:
+    path: /etc/yum.repos.d/docker-ce-stable.repo
+    regexp: '\$releasever'
+    replace: '9'
+  when: ansible_distribution == "OracleLinux" and ansible_distribution_major_version == "10"
+
+- name: Install Docker on RedHat-based Linux
+  become: yes
+  ansible.builtin.dnf:
+    name:   "{{ item }}"
+    state:  present
+  loop:
+    - docker-ce
+    - docker-ce-cli
+    - docker-buildx-plugin
+    - docker-compose-plugin
+    - containerd.io
+  when: ansible_os_family == "RedHat"
+
+- name: Enable containerd on RedHat-based Linux
+  become: yes
+  ansible.builtin.service:
+    name:    containerd
+    state:   started
+    enabled: yes
+  when: ansible_os_family == "RedHat"
+
+- name: Enable docker on RedHat-based Linux
+  become: yes
+  ansible.builtin.service:
+    name:    docker
+    state:   started
+    enabled: yes
+  when: ansible_os_family == "RedHat"
+
+# - name: Add Docker repository on Debian-based Linux
+#   become: yes
+#   ansible.builtin.apt_repository:
+#     repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} stable
+#     state: present
+#     filename: docker
+#     update_cache: yes
+#     validate_certs: yes
+#     codename: "{{ ansible_lsb.codename }}"
+#     arch: amd64
+#     keyserver: keyserver.ubuntu.com
+#     key: 0EBFCD88
+#   when: ansible_os_family == "Debian"
+
+# - name: Install Docker on Fedora
+#   become: yes
+#   ansible.builtin.package:
+#     name:   "{{ item }}"
+#     state:  present
+#   loop:
+#     - docker
+#     - docker-cli 
+#     - docker-buildx
+#     - docker-compose 
+#     - docker-compose-switch
+#     - containerd
+#     - moby-engine
+#   when: ansible_distribution == "Fedora"

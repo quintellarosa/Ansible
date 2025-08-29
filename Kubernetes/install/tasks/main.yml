@@ -1,0 +1,22 @@
+---
+- include_tasks: 01-set_selinux_to_permissive_mode.yml
+
+- include_tasks: 02-disable_swap.yml
+
+- include_tasks: 03-install_iptables_and_iproute.yml
+
+- include_tasks: 04-load_kernel_modules.yml
+
+- include_tasks: 05-open_firewall_ports.yml
+
+- include_tasks: 06-install_docker_and_containerd.yml
+
+- include_tasks: 07-configure_containerd.yml
+
+- include_tasks: 08-update_SystemdCgroup_directive_to_true.yml
+
+- include_tasks: 09-add_kubernetes_repository.yml
+
+- include_tasks: 10-install_kubeadm_kubelet_kubectl.yml
+
+- include_tasks: initialize_kubernetes_master.yml

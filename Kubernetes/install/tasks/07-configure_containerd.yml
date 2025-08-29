@@ -3,12 +3,12 @@
   ansible.builtin.file:
     path: /etc/containerd
     state: directory
-  when: ansible_distribution == "Fedora"
+  when: ansible_os_family == "RedHat"
 
 - name: Create a default configuration file for containerd
   become: yes
   ansible.builtin.shell: "containerd config default > /etc/containerd/config.toml"
-  when: ansible_distribution == "Fedora"
+  when: ansible_os_family == "RedHat"
 
 - name: Restart the containerd service to apply the changes
   become: yes
@@ -16,4 +16,4 @@
     name:    containerd.service
     state:   restarted
     enabled: yes
-  when: ansible_distribution == "Fedora"
+  when: ansible_os_family == "RedHat"

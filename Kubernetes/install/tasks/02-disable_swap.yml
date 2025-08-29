@@ -9,9 +9,9 @@
     replace: '# \1'
   become: yes
 
-- name: Remove ZRAM on Fedora
+- name: Remove ZRAM on RedHat-based Linux
   become: yes
-  ansible.builtin.package:
+  ansible.builtin.dnf:
     name:   zram-generator-defaults
     state:  absent
-  #when: ansible_distribution == "Fedora"
+  when: ansible_os_family == "RedHat"
