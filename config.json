@@ -1,0 +1,17 @@
+{
+ 	"postgres": {
+ 		"host": "127.0.0.1:5432",
+ 		"user": "root",
+ 		"pass": "Pi=3.1415926",
+ 		"name": "semaphore",
+ 		"options": {
+ 			"sslmode": "disable"
+ 		}
+ 	},
+ 	"dialect": "postgres",
+ 	"tmp_path": "/tmp/semaphore",
+ 	"web_host": "https://semaphore.quintellarosa.com/",
+ 	"cookie_hash": "CZok6RVngX10v+nadsV+jTn8Q9hsC19Ak1Tz1OCb9s8=",
+ 	"cookie_encryption": "Tc5Ik+ndJNVxC4ha7Qw5IcbV53Jsc9nE51+waYUhpZY=",
+ 	"access_key_encryption": "nc4CNge633++BmsfvkqcHUYi2gVEmUYQI5dTQNf6VCk="
+ }
