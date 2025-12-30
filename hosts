@@ -1,14 +1,28 @@
 [localhost]
 localhost
 
-[OracleLinux]
-oracle.quintellarosa.home
+[web-servers]
+web-server-04
+web-server-09
 
-[Ubuntu]
-ubuntu.quintellarosa.home
+[Alma]
+
+[AWS]
+
+[Azure]
 
 [Fedora]
-fedora.quintellarosa.home
+k8s-master-01.quintellarosa.home
+web-server-04.quintellarosa.home
 
 [OpenSuse]
-opensuse.quintellarosa.home
+web-server-06.quintellarosa.home
+
+[OracleLinux]
+web-server-07.quintellarosa.home
+
+[RockyLinux]
+web-server-08.quintellarosa.home
+
+[Ubuntu]
+web-server-09.quintellarosa.home
