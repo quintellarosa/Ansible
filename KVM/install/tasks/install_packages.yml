@@ -1,7 +1,7 @@
 ---
 - name: Install Virtualization on Fedora
   become: true
-  dnf:
+  sudo dnf:
     name: "@virtualization"
     state: present
   when: ansible_distribution == "Fedora"
@@ -9,7 +9,7 @@
 
 - name: Install Virtualization on Oracle linux
   become: true
-  dnf:
+  sudo dnf:
     name: "{{ item }}"
     state: present
   loop:

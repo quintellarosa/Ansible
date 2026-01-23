@@ -1,7 +1,7 @@
 ---
 - name: Remove Virtualization on Fedora
   become: true
-  dnf:
+  sudo dnf:
     name: "@virtualization"
     state: absent
   when: ansible_distribution == "Fedora"
@@ -9,7 +9,7 @@
 
 - name: Remove Virtualization on Oracle linux
   become: true
-  dnf:
+  sudo dnf:
     name: "{{ item }}"
     state: absent
   loop:

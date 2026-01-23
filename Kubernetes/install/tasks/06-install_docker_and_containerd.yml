@@ -1,6 +1,6 @@
 - name: Remove existing Docker installation files on Fedora
   become: yes
-  ansible.builtin.dnf:
+  ansible.builtin.sudo dnf:
     name: "{{ item }}"
     state: absent
   loop:
@@ -18,7 +18,7 @@
 
 - name: Remove existing Docker installation files on RedHat/Oracle Linux
   become: yes
-  ansible.builtin.dnf:
+  ansible.builtin.sudo dnf:
     name: "{{ item }}"
     state: absent
   loop:
@@ -34,10 +34,10 @@
     - runc
   when: ansible_distribution in ["RedHat", "OracleLinux"]
 
-- name: Install DNF core plugins on RedHat-based Linux
+- name: Install sudo dnf core plugins on RedHat-based Linux
   become: yes
-  ansible.builtin.dnf:
-    name: dnf-plugins-core
+  ansible.builtin.sudo dnf:
+    name: sudo dnf-plugins-core
     state: present
   when: ansible_os_family == "RedHat"
 
@@ -75,7 +75,7 @@
 
 - name: Install Docker on RedHat-based Linux
   become: yes
-  ansible.builtin.dnf:
+  ansible.builtin.sudo dnf:
     name:   "{{ item }}"
     state:  present
   loop:

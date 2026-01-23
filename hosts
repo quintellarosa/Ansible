@@ -1,7 +1,7 @@
-[localhost]
+[LocalHost]
 localhost
 
-[web-servers]
+[WebServers]
 web-server-04
 web-server-09
 

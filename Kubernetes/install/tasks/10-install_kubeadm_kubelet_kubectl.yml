@@ -1,6 +1,6 @@
   - name: Install kubeadm, kubelet and kubectl
     become: yes
-    dnf:
+    sudo dnf:
       name: "{{ item }}"
       state: present
       disable_excludes: kubernetes
