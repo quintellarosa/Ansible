@@ -1,7 +1,7 @@
 ---
 all:
   children:
-  
+
     # Gateway Router
     gateway_router:
       hosts:
@@ -19,18 +19,24 @@ all:
           ansible_host: win2025dc01.quintellarosa.home
           mac_address:  00:11:11:00:00:02 # 02
           ip_address:   192.168.1.2
+          os_type:      Windows
+          os_name:      Windows Server
           os_version:   Windows Server 2025 Standard
 
         DomainController02:
           ansible_host: win2025dc02.quintellarosa.home
           mac_address:  00:11:11:00:00:03 # 03
           ip_address:   192.168.1.3
+          os_type:      Windows
+          os_name:      Windows Server
           os_version:   Windows Server 2025 Standard
 
         DomainController03:
           ansible_host: win2025dc03.quintellarosa.home
           mac_address:  00:11:11:00:00:04 # 04
           ip_address:   192.168.1.4
+          os_type:      Windows
+          os_name:      Windows Server
           os_version:   Windows Server 2025 Standard
 
 
@@ -43,12 +49,16 @@ all:
           ansible_host: lnxorcldbpgsql1.quintellarosa.home
           mac_address:  00:11:11:00:00:29 # 41
           ip_address:   192.168.1.41
+          os_type:      Linux
+          os_name:      Oracle Linux
           os_version:   Oracle Linux 10
 
         PostgreSQL02:
           ansible_host: lnxubntdbpgsql2.quintellarosa.home
           mac_address:  00:11:11:00:00:2A # 42
           ip_address:   192.168.1.42
+          os_type:      Linux
+          os_name:      Ubuntu
           os_version:   Ubuntu 24.04
 
         # MySQL
@@ -56,12 +66,16 @@ all:
           ansible_host: lnxorcldbmysql1.quintellarosa.home
           mac_address:  00:11:11:00:00:2B # 43
           ip_address:   192.168.1.43
+          os_type:      Linux
+          os_name:      Oracle Linux
           os_version:   Oracle Linux 10
 
         MySQL02:
           ansible_host: lnxubntdbmysql2.quintellarosa.home
           mac_address:  00:11:11:00:00:2C # 44
           ip_address:   192.168.1.44
+          os_type:      Linux
+          os_name:      Ubuntu
           os_version:   Ubuntu 24.04
 
         # Oracle DB
@@ -69,12 +83,16 @@ all:
           ansible_host: lnxorcldborcl01.quintellarosa.home
           mac_address:  00:11:11:00:00:2D # 45
           ip_address:   192.168.1.45
+          os_type:      Linux
+          os_name:      Oracle Linux
           os_version:   Oracle Linux 10
 
         OracleDB02:
           ansible_host: lnxorcldborcl02.quintellarosa.home
           mac_address:  00:11:11:00:00:2E # 46
           ip_address:   192.168.1.46  
+          os_type:      Linux
+          os_name:      Oracle Linux
           os_version:   Oracle Linux 10
 
         # Microsoft SQL Server
@@ -82,12 +100,16 @@ all:
           ansible_host: win2025dbmssql1.quintellarosa.home
           mac_address:  00:11:11:00:00:2F # 47
           ip_address:   192.168.1.47
+          os_type:      Windows
+          os_name:      Windows Server
           os_version:   Windows Server 2025 Standard
 
         MSSQL02:
           ansible_host: win2025dbmssql2.quintellarosa.home
           mac_address:  00:11:11:00:00:30 # 48
           ip_address:   192.168.1.48
+          os_type:      Windows
+          os_name:      Windows Server
           os_version:   Windows Server 2025 Standard
 
         # MongoDB
@@ -95,12 +117,16 @@ all:
           ansible_host: lnxorcldbmongodb1.quintellarosa.home
           mac_address:  00:11:11:00:00:31 # 49
           ip_address:   192.168.1.49
+          os_type:      Linux
+          os_name:      Oracle Linux
           os_version:   Oracle Linux 10
 
         MongoDB02:
           ansible_host: lnxubntdbmongodb2.quintellarosa.home
           mac_address:  00:11:11:00:00:32 # 50
           ip_address:   192.168.1.50
+          os_type:      Linux
+          os_name:      Ubuntu
           os_version:   Ubuntu 24.04
 
 
@@ -113,26 +139,40 @@ all:
           ansible_host: lnxorclk8sctrl1.quintellarosa.home
           mac_address:  00:11:11:00:00:33 # 51
           ip_address:   192.168.1.51
+          os_type:      Linux
+          os_name:      Oracle Linux
           os_version:   Oracle Linux 10
+
         K8sControl02:
           ansible_host:  lnxorclk8sctrl2.quintellarosa.home
           mac_address:  00:11:11:00:00:34 # 52
           ip_address:   192.168.1.52
+          os_type:      Linux
+          os_name:      Oracle Linux
           os_version:   Oracle Linux 10
+
         K8sControl03:
           ansible_host: lnxorclk8sctrl3.quintellarosa.home
           mac_address:  00:11:11:00:00:35 # 53
           ip_address:   192.168.1.53
+          os_type:      Linux
+          os_name:      Oracle Linux
           os_version:   Oracle Linux 10
+
         K8sControl04:
           ansible_host: lnxorclk8sctrl4.quintellarosa.home
           mac_address:  00:11:11:00:00:36 # 54
           ip_address:   192.168.1.54
+          os_type:      Linux
+          os_name:      Oracle Linux
           os_version:   Oracle Linux 10
+
         K8sControl05:
           ansible_host: lnxorclk8sctrl5.quintellarosa.home
           mac_address:  00:11:11:00:00:37 # 55
           ip_address:   192.168.1.55
+          os_type:      Linux
+          os_name:      Oracle Linux
           os_version:   Oracle Linux 10
 
         # Kubernetes Worker Nodes
@@ -140,26 +180,40 @@ all:
           ansible_host: lnxorclk8swrkr1.quintellarosa.home
           mac_address:  00:11:11:00:00:38 # 56
           ip_address:   192.168.1.56
+          os_type:      Linux
+          os_name:      Oracle Linux
           os_version:   Oracle Linux 10
+
         K8sWorker02:
           ansible_host: lnxorclk8swrkr2.quintellarosa.home
           mac_address:  00:11:11:00:00:39 # 57
           ip_address:   192.168.1.57
+          os_type:      Linux
+          os_name:      Oracle Linux
           os_version:   Oracle Linux 10
+
         K8sWorker03:
           ansible_host: lnxorclk8swrkr3.quintellarosa.home
           mac_address:  00:11:11:00:00:3A # 58
           ip_address:   192.168.1.58
+          os_type:      Linux
+          os_name:      Oracle Linux
           os_version:   Oracle Linux 10
+
         K8sWorker04:
           ansible_host: lnxorclk8swrkr4.quintellarosa.home
           mac_address:  00:11:11:00:00:3B # 59
           ip_address:   192.168.1.59
+          os_type:      Linux
+          os_name:      Oracle Linux
           os_version:   Oracle Linux 10
+          
         K8sWorker05:
           ansible_host: lnxorclk8swrkr5.quintellarosa.home
           mac_address:  00:11:11:00:00:3C # 60
           ip_address:   192.168.1.60
+          os_type:      Linux
+          os_name:      Oracle Linux
           os_version:   Oracle Linux 10
 
 
@@ -172,24 +226,38 @@ all:
           ansible_host: lnxorclwebngnx1.quintellarosa.home
           mac_address:  00:11:11:00:00:3D # 61
           ip_address:   192.168.1.61
+          os_type:      Linux
+          os_name:      Oracle Linux
           os_version:   Oracle Linux 10
+
         WebServer02:
           ansible_host: lnxorclwebngnx2.quintellarosa.home
           mac_address:  00:11:11:00:00:3E # 62
           ip_address:   192.168.1.62
+          os_type:      Linux
+          os_name:      Oracle Linux
           os_version:   Oracle Linux 10
+
         WebServer03:
           ansible_host: lnxorclwebapch1.quintellarosa.home
           mac_address:  00:11:11:00:00:3F # 63
           ip_address:   192.168.1.63
+          os_type:      Linux
+          os_name:      Oracle Linux
           os_version:   Oracle Linux 10
+
         WebServer04:
           ansible_host: lnxorclwebapch2.quintellarosa.home
           mac_address:  00:11:11:00:00:40 # 64
           ip_address:   192.168.1.64
+          os_type:      Linux
+          os_name:      Oracle Linux
           os_version:   Oracle Linux 10
+
         WebServer05:
           ansible_host: lnxubntwebngnx3.quintellarosa.home
           mac_address:  00:11:11:00:00:41 # 65
           ip_address:   192.168.1.65
+          os_type:      Linux
+          os_name:      Ubuntu
           os_version:   Ubuntu 24.04
