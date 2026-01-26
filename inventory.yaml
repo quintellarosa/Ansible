@@ -8,9 +8,9 @@ all:
     
       vars:
         domain_name: quintellarosa.home
-        gateway:     192.168.1.1
+        gateway:     192.168.122.1
         dns_servers:
-          - 192.168.1.2
+          - 192.168.122.2
 
       children:
 
@@ -19,23 +19,29 @@ all:
           hosts:
             GatewayRouter01:
               ansible_host:             gateway01.quintellarosa.home
-              environment:    
+              provisioning:    
                 type:                   virtual
                 cloud:                  local
                 virtualization:         KVM
                 virtualization_server:  precision.quintellarosa.home
               cpu:
+                sockets:                1
                 cores:                  1
                 threads:                2
               memory:
                 size_gb:                2
               storage:
                 - type:                 QCOW2
-                  size_gb:              20
+                  size_gb:              1
                   mount:                /
               network:
                 - mac_address:          00:11:11:00:00:01 # 01
-                  ip_address:           192.168.1.1
+                  ip_address:           192.168.122.1
+              os:
+                type:                   FreeBSD
+                name:                   FreeBSD
+                version:                FreeBSD 14.0
+                image:                  .iso
 
 
         # Windows Active Directory
@@ -45,12 +51,13 @@ all:
             # Domain Controllers
             DomainController01:
               ansible_host:             win2025dc01.quintellarosa.home
-              environment:    
+              provisioning:    
                 type:                   virtual
                 cloud:                  local
                 virtualization:         KVM
                 virtualization_server:  precision.quintellarosa.home
               cpu:
+                sockets:                1
                 cores:                  2
                 threads:                4
               memory:
@@ -61,7 +68,7 @@ all:
                   mount:                C:\
               network:
                 - mac_address:          00:11:11:00:00:02 # 02
-                  ip_address:           192.168.1.2
+                  ip_address:           192.168.122.2
               os:
                 type:                   Windows
                 name:                   Windows Server
@@ -70,7 +77,7 @@ all:
 
             DomainController02:
               ansible_host:             win2025dc02.quintellarosa.home
-              environment:    
+              provisioning:    
                 type:                   virtual
                 cloud:                  local
                 virtualization:         KVM
@@ -87,7 +94,7 @@ all:
                   mount:                C:\
               network:
                 - mac_address:          00:11:11:00:00:03 # 03
-                  ip_address:           192.168.1.3
+                  ip_address:           192.168.122.3
               os:
                 type:                   Windows
                 name:                   Windows Server
@@ -96,12 +103,13 @@ all:
 
             DomainController03:
               ansible_host:             win2025dc03.quintellarosa.home
-              environment:    
+              provisioning:    
                 type:                   virtual
                 cloud:                  local
                 virtualization:         KVM
                 virtualization_server:  precision.quintellarosa.home
               cpu:
+                sockets:                1
                 cores:                  2
                 threads:                4
               memory:
@@ -112,43 +120,12 @@ all:
                   mount:                C:\
               network:
                 - mac_address:          00:11:11:00:00:04 # 04
-                  ip_address:           192.168.1.4
+                  ip_address:           192.168.122.4
               os:
                 type:                   Windows
                 name:                   Windows Server
                 version:                Windows Server 2025 Standard
                 image:                  Windows_Server_2025_Standard.iso
-
-        
-        # Application Servers
-        appservers:
-          hosts:
-
-            # GLPI Server
-            GLPIServer:
-              ansible_host:             lnxubntappglpi1.quintellarosa.home
-              environment:    
-                type:                   virtual
-                cloud:                  local
-                virtualization:         KVM
-                virtualization_server:  precision.quintellarosa.home
-              cpu:
-                cores:                  1
-                threads:                2
-              memory:
-                size_gb:                4
-              storage:
-                - type:                 QCOW2
-                  size_gb:              25
-                  mount:                /
-              network:
-                - mac_address:          00:11:11:00:00:20 # 32
-                  ip_address:           192.168.1.20
-              os:
-                type:                   Linux
-                name:                   Ubuntu
-                version:                Ubuntu 24.04
-                image:                  Ubuntu_24.04.iso
 
 
         # Database Servers
@@ -158,12 +135,13 @@ all:
             # PostgreSQL
             PostgreSQL01:
               ansible_host:             lnxorcldbpgsql1.quintellarosa.home
-              environment:    
+              provisioning:    
                 type:                   virtual
                 cloud:                  local
                 virtualization:         KVM
                 virtualization_server:  precision.quintellarosa.home
               cpu:
+                sockets:                1
                 cores:                  2
                 threads:                4
               memory:
@@ -174,7 +152,7 @@ all:
                   mount:                /
               network:
                 - mac_address:          00:11:11:00:00:29 # 41
-                  ip_address:           192.168.1.41
+                  ip_address:           192.168.122.41
               os:
                 type:                   Linux
                 name:                   Oracle Linux
@@ -183,7 +161,7 @@ all:
 
             PostgreSQL02:
               ansible_host:             lnxubntdbpgsql2.quintellarosa.home
-              environment:    
+              provisioning:    
                 type:                   virtual
                 cloud:                  local
                 virtualization:         KVM
@@ -200,7 +178,7 @@ all:
                   mount:                /
               network:
                 - mac_address:          00:11:11:00:00:2A # 42
-                  ip_address:           192.168.1.42
+                  ip_address:           192.168.122.42
               os:
                 type:                   Linux
                 name:                   Ubuntu
@@ -210,12 +188,13 @@ all:
             # MySQL
             MySQL01:
               ansible_host:             lnxorcldbmysql1.quintellarosa.home
-              environment:    
+              provisioning:    
                 type:                   virtual
                 cloud:                  local
                 virtualization:         KVM
                 virtualization_server:  precision.quintellarosa.home
               cpu:
+                sockets:                1
                 cores:                  2
                 threads:                4
               memory:
@@ -226,7 +205,7 @@ all:
                   mount:                /
               network:
                 - mac_address:          00:11:11:00:00:2B # 43
-                  ip_address:           192.168.1.43
+                  ip_address:           192.168.122.43
               os:
                 type:                   Linux
                 name:                   Oracle Linux
@@ -235,7 +214,7 @@ all:
 
             MySQL02:
               ansible_host:             lnxubntdbmysql2.quintellarosa.home
-              environment:  
+              provisioning:  
                 type:                   virtual
                 cloud:                  local
                 virtualization:         KVM
@@ -252,7 +231,7 @@ all:
                   mount:                /
               network:
                 - mac_address:          00:11:11:00:00:2C # 44
-                  ip_address:           192.168.1.44
+                  ip_address:           192.168.122.44
               os:
                 type:                   Linux
                 name:                   Ubuntu
@@ -262,12 +241,13 @@ all:
             # Oracle DB
             OracleDB01:
               ansible_host:             lnxorcldborcl01.quintellarosa.home
-              environment:    
+              provisioning:    
                 type:                   virtual
                 cloud:                  local
                 virtualization:         KVM
                 virtualization_server:  precision.quintellarosa.home
               cpu:
+                sockets:                1
                 cores:                  2
                 threads:                4
               memory:
@@ -278,7 +258,7 @@ all:
                   mount:                /
               network:
                 - mac_address:          00:11:11:00:00:2D # 45
-                  ip_address:           192.168.1.45
+                  ip_address:           192.168.122.45
               os:
                 type:                   Linux
                 name:                   Oracle Linux
@@ -287,7 +267,7 @@ all:
 
             OracleDB02:
               ansible_host:             lnxorcldborcl02.quintellarosa.home
-              environment:    
+              provisioning:    
                 type:                   virtual
                 cloud:                  local
                 virtualization:         KVM
@@ -304,7 +284,7 @@ all:
                   mount:                /
               network:
                 - mac_address:          00:11:11:00:00:2E # 46
-                  ip_address:           192.168.1.46
+                  ip_address:           192.168.122.46
               os:
                 type:                   Linux
                 name:                   Oracle Linux
@@ -314,12 +294,13 @@ all:
             # Microsoft SQL Server
             MSSQL01:
               ansible_host:             win2025dbmssql1.quintellarosa.home
-              environment:    
+              provisioning:    
                 type:                   virtual
                 cloud:                  local
                 virtualization:         KVM
                 virtualization_server:  precision.quintellarosa.home
               cpu:
+                sockets:                1
                 cores:                  2
                 threads:                4
               memory:
@@ -330,7 +311,7 @@ all:
                   mount:                C:\
               network:
                 - mac_address:          00:11:11:00:00:2F # 47
-                  ip_address:           192.168.1.47
+                  ip_address:           192.168.122.47
               os:
                 type:                   Windows
                 name:                   Windows Server
@@ -339,12 +320,13 @@ all:
 
             MSSQL02:
               ansible_host:             win2025dbmssql2.quintellarosa.home
-              environment:    
+              provisioning:    
                 type:                   virtual
                 cloud:                  local
                 virtualization:         KVM
                 virtualization_server:  precision.quintellarosa.home
               cpu:
+                sockets:                1
                 cores:                  2
                 threads:                4
               memory:
@@ -355,7 +337,7 @@ all:
                   mount:                C:\
               network:
                 - mac_address:          00:11:11:00:00:30 # 48
-                  ip_address:           192.168.1.48
+                  ip_address:           192.168.122.48
               os:
                 type:                   Windows
                 name:                   Windows Server
@@ -365,12 +347,13 @@ all:
             # MongoDB
             MongoDB01:
               ansible_host:             lnxorcldbmongodb1.quintellarosa.home
-              environment:    
+              provisioning:    
                 type:                   virtual
                 cloud:                  local
                 virtualization:         KVM
                 virtualization_server:  precision.quintellarosa.home
               cpu:
+                sockets:                1
                 cores:                  2
                 threads:                4
               memory:
@@ -381,7 +364,7 @@ all:
                   mount:                /
               network:
                 - mac_address:          00:11:11:00:00:31 # 49
-                  ip_address:           192.168.1.49
+                  ip_address:           192.168.122.49
               os:
                 type:                   Linux
                 name:                   Oracle Linux
@@ -390,12 +373,13 @@ all:
 
             MongoDB02:
               ansible_host:             lnxubntdbmongodb2.quintellarosa.home
-              environment:    
+              provisioning:    
                 type:                   virtual
                 cloud:                  local
                 virtualization:         KVM
                 virtualization_server:  precision.quintellarosa.home
               cpu:
+                sockets:                1
                 cores:                  2
                 threads:                4
               memory:
@@ -406,7 +390,7 @@ all:
                   mount:                /
               network:
                 - mac_address:          00:11:11:00:00:32 # 50
-                  ip_address:           192.168.1.50
+                  ip_address:           192.168.122.50
               os:
                 type:                   Linux
                 name:                   Ubuntu
@@ -421,12 +405,13 @@ all:
             # Kubernetes Control Plane Nodes
             K8sControl01:
               ansible_host:             lnxorclk8sctrl1.quintellarosa.home
-              environment:    
+              provisioning:    
                 type:                   virtual
                 cloud:                  local
                 virtualization:         KVM
                 virtualization_server:  precision.quintellarosa.home
               cpu:
+                sockets:                1
                 cores:                  2
                 threads:                4
               memory:
@@ -437,7 +422,7 @@ all:
                   mount:                /
               network:
                 - mac_address:          00:11:11:00:00:33 # 51
-                  ip_address:           192.168.1.51
+                  ip_address:           192.168.122.51
               os:
                 type:                   Linux
                 name:                   Oracle Linux
@@ -446,12 +431,13 @@ all:
 
             K8sControl02:
               ansible_host:             lnxorclk8sctrl2.quintellarosa.home
-              environment:    
+              provisioning:    
                 type:                   virtual
                 cloud:                  local
                 virtualization:         KVM
                 virtualization_server:  precision.quintellarosa.home
               cpu:
+                sockets:                1
                 cores:                  2
                 threads:                4
               memory:
@@ -462,7 +448,7 @@ all:
                   mount:                /
               network:
                 - mac_address:          00:11:11:00:00:34 # 52
-                  ip_address:           192.168.1.52
+                  ip_address:           192.168.122.52
               os:
                 type:                   Linux
                 name:                   Oracle Linux
@@ -471,12 +457,13 @@ all:
 
             K8sControl03:
               ansible_host:             lnxorclk8sctrl3.quintellarosa.home
-              environment:    
+              provisioning:    
                 type:                   virtual
                 cloud:                  local
                 virtualization:         KVM
                 virtualization_server:  precision.quintellarosa.home
               cpu:
+                sockets:                1
                 cores:                  2
                 threads:                4
               memory:
@@ -487,7 +474,7 @@ all:
                   mount:                /
               network:
                 - mac_address:          00:11:11:00:00:35 # 53
-                  ip_address:           192.168.1.53
+                  ip_address:           192.168.122.53
               os:
                 type:                   Linux
                 name:                   Oracle Linux
@@ -496,12 +483,13 @@ all:
 
             K8sControl04:
               ansible_host:             lnxorclk8sctrl4.quintellarosa.home
-              environment:    
+              provisioning:    
                 type:                   virtual
                 cloud:                  local
                 virtualization:         KVM
                 virtualization_server:  precision.quintellarosa.home
               cpu:
+                sockets:                1
                 cores:                  2
                 threads:                4
               memory:
@@ -512,7 +500,7 @@ all:
                   mount:                /
               network:
                 - mac_address:          00:11:11:00:00:36 # 54
-                  ip_address:           192.168.1.54
+                  ip_address:           192.168.122.54
               os:
                 type:                   Linux
                 name:                   Oracle Linux
@@ -521,12 +509,13 @@ all:
 
             K8sControl05:
               ansible_host:             lnxorclk8sctrl5.quintellarosa.home
-              environment:    
+              provisioning:    
                 type:                   virtual
                 cloud:                  local
                 virtualization:         KVM
                 virtualization_server:  precision.quintellarosa.home
               cpu:
+                sockets:                1
                 cores:                  2
                 threads:                4
               memory:
@@ -537,7 +526,7 @@ all:
                   mount:                /
               network:
                 - mac_address:          00:11:11:00:00:37 # 55
-                  ip_address:           192.168.1.55
+                  ip_address:           192.168.122.55
               os:
                 type:                   Linux
                 name:                   Oracle Linux
@@ -547,12 +536,13 @@ all:
             # Kubernetes Worker Nodes
             K8sWorker01:
               ansible_host:             lnxorclk8swrkr1.quintellarosa.home
-              environment:    
+              provisioning:    
                 type:                   virtual
                 cloud:                  local
                 virtualization:         KVM
                 virtualization_server:  precision.quintellarosa.home
               cpu:
+                sockets:                1
                 cores:                  2
                 threads:                4
               memory:
@@ -563,7 +553,7 @@ all:
                   mount:                /
               network:
                 - mac_address:          00:11:11:00:00:38 # 56
-                  ip_address:           192.168.1.56
+                  ip_address:           192.168.122.56
               os:
                 type:                   Linux
                 name:                   Oracle Linux
@@ -572,12 +562,13 @@ all:
 
             K8sWorker02:
               ansible_host:             lnxorclk8swrkr2.quintellarosa.home
-              environment:    
+              provisioning:    
                 type:                   virtual
                 cloud:                  local
                 virtualization:         KVM
                 virtualization_server:  precision.quintellarosa.home
               cpu:
+                sockets:                1
                 cores:                  2
                 threads:                4
               memory:
@@ -588,7 +579,7 @@ all:
                   mount:                /
               network:
                 - mac_address:          00:11:11:00:00:39 # 57
-                  ip_address:           192.168.1.57
+                  ip_address:           192.168.122.57
               os:
                 type:                   Linux
                 name:                   Oracle Linux
@@ -597,12 +588,13 @@ all:
 
             K8sWorker03:
               ansible_host:             lnxorclk8swrkr3.quintellarosa.home
-              environment:    
+              provisioning:    
                 type:                   virtual
                 cloud:                  local
                 virtualization:         KVM
                 virtualization_server:  precision.quintellarosa.home
               cpu:
+                sockets:                1
                 cores:                  2
                 threads:                4
               memory:
@@ -613,7 +605,7 @@ all:
                   mount:                /
               network:
                 - mac_address:          00:11:11:00:00:3A # 58
-                  ip_address:           192.168.1.58
+                  ip_address:           192.168.122.58
               os:
                 type:                   Linux
                 name:                   Oracle Linux
@@ -622,12 +614,13 @@ all:
 
             K8sWorker04:
               ansible_host:             lnxorclk8swrkr4.quintellarosa.home
-              environment:    
+              provisioning:    
                 type:                   virtual
                 cloud:                  local
                 virtualization:         KVM
                 virtualization_server:  precision.quintellarosa.home
               cpu:
+                sockets:                1
                 cores:                  2
                 threads:                4
               memory:
@@ -638,7 +631,7 @@ all:
                   mount:                /
               network:
                 - mac_address:          00:11:11:00:00:3B # 59
-                  ip_address:           192.168.1.59
+                  ip_address:           192.168.122.59
               os:
                 type:                   Linux
                 name:                   Oracle Linux
@@ -647,12 +640,13 @@ all:
               
             K8sWorker05:
               ansible_host:             lnxorclk8swrkr5.quintellarosa.home
-              environment:    
+              provisioning:    
                 type:                   virtual
                 cloud:                  local
                 virtualization:         KVM
                 virtualization_server:  precision.quintellarosa.home
               cpu:
+                sockets:                1
                 cores:                  2
                 threads:                4
               memory:
@@ -663,7 +657,7 @@ all:
                   mount:                /
               network:
                 - mac_address:          00:11:11:00:00:3C # 60
-                  ip_address:           192.168.1.60
+                  ip_address:           192.168.122.60
               os:
                 type:                   Linux
                 name:                   Oracle Linux
@@ -676,50 +670,52 @@ all:
           hosts:
 
             # Web Servers
-            WebServer01:
-              ansible_host:             lnxorclwebngnx1.quintellarosa.home
-              environment:    
+            GLPIServer:
+              ansible_host:             lnxubntwebglpi1.quintellarosa.home
+              provisioning:    
                 type:                   virtual
                 cloud:                  local
                 virtualization:         KVM
                 virtualization_server:  precision.quintellarosa.home
               cpu:
-                cores:                  2
-                threads:                4
+                sockets:                1
+                cores:                  1
+                threads:                2
               memory:
-                size_gb:                8
+                size_gb:                4
               storage:
                 - type:                 QCOW2
-                  size_gb:              100
+                  size_gb:              25
                   mount:                /
               network:
-                - mac_address:          00:11:11:00:00:3D # 61
-                  ip_address:           192.168.1.61
+                - mac_address:          00:11:11:00:00:20 # 32
+                  ip_address:           192.168.122.20
               os:
                 type:                   Linux
-                name:                   Oracle Linux
-                version:                Oracle Linux 10
-                image:                  Oracle_Linux_10.iso
+                name:                   Ubuntu
+                version:                Ubuntu 24.04
+                image:                  Ubuntu_24.04.iso
 
-            WebServer02:
-              ansible_host:             lnxorclwebngnx2.quintellarosa.home
-              environment:    
+            BackstageServer:
+              ansible_host:             lnxorclwebstg1.quintellarosa.home
+              provisioning:    
                 type:                   virtual
                 cloud:                  local
                 virtualization:         KVM
                 virtualization_server:  precision.quintellarosa.home
               cpu:
-                cores:                  2
-                threads:                4
+                sockets:                1
+                cores:                  1
+                threads:                2
               memory:
-                size_gb:                8
+                size_gb:                4
               storage:
                 - type:                 QCOW2
-                  size_gb:              100
+                  size_gb:              25
                   mount:                /
               network:
                 - mac_address:          00:11:11:00:00:3E # 62
-                  ip_address:           192.168.1.62
+                  ip_address:           192.168.122.62
               os:
                 type:                   Linux
                 name:                   Oracle Linux
@@ -728,12 +724,13 @@ all:
 
             WebServer03:
               ansible_host:             lnxorclwebapch1.quintellarosa.home
-              environment:    
+              provisioning:    
                 type:                   virtual
                 cloud:                  local
                 virtualization:         KVM
                 virtualization_server:  precision.quintellarosa.home
               cpu:
+                sockets:                1
                 cores:                  2
                 threads:                4
               memory:
@@ -744,7 +741,7 @@ all:
                   mount:                /
               network:
                 - mac_address:          00:11:11:00:00:3F # 63
-                  ip_address:           192.168.1.63
+                  ip_address:           192.168.122.63
               os:
                 type:                   Linux
                 name:                   Oracle Linux
@@ -753,12 +750,13 @@ all:
 
             WebServer04:
               ansible_host:             lnxorclwebapch2.quintellarosa.home
-              environment:    
+              provisioning:    
                 type:                   virtual
                 cloud:                  local
                 virtualization:         KVM
                 virtualization_server:  precision.quintellarosa.home
               cpu:
+                sockets:                1
                 cores:                  2
                 threads:                4
               memory:
@@ -769,7 +767,7 @@ all:
                   mount:                /
               network:
                 - mac_address:          00:11:11:00:00:40 # 64
-                  ip_address:           192.168.1.64
+                  ip_address:           192.168.122.64
               os:
                 type:                   Linux
                 name:                   Oracle Linux
@@ -778,12 +776,13 @@ all:
 
             WebServer05:
               ansible_host:             lnxubntwebngnx3.quintellarosa.home
-              environment:    
+              provisioning:    
                 type:                   virtual
                 cloud:                  local
                 virtualization:         KVM
                 virtualization_server:  precision.quintellarosa.home
               cpu:
+                sockets:                1
                 cores:                  2
                 threads:                4
               memory:
@@ -794,7 +793,7 @@ all:
                   mount:                /
               network:
                 - mac_address:          00:11:11:00:00:41 # 65
-                  ip_address:           192.168.1.65
+                  ip_address:           192.168.122.65
               os:
                 type:                   Linux
                 name:                   Ubuntu
