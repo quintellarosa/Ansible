@@ -13,6 +13,9 @@ all:
           - 192.168.122.2
 
       children:
+        # Network Infrastructure
+        InfraServers:
+          hosts:
 
         # # Gateway Router
         # gateway_routers:
@@ -126,6 +129,27 @@ all:
         #         name:                   Windows Server
         #         version:                Windows Server 2025 Standard
         #         image:                  Windows_Server_2025_Standard.iso
+
+            PXEServer:
+              ansible_host:             lnxorclpxesvr.quintellarosa.home
+              provisioning:    
+                type:                   virtual
+                cloud:                  local
+                virtualization:         KVM
+                virtualization_server:  precision.quintellarosa.home
+              cpu:
+                sockets:                1
+                cores:                  1
+                threads:                2
+              memory:
+                size_gb:                4
+              storage:
+                - type:                 QCOW2
+                  size_gb:              25
+                  mount:                /
+              network:
+                - mac_address:          00:11:11:00:00:07 # 7
+                  ip_address:           192.168.122.7
 
         # Application Servers
         AppServers:

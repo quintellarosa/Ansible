@@ -24,6 +24,7 @@
       name: firewalld
       state: started
       enabled: true
+    when: ansible_distribution in ['CentOS', 'RedHat', 'Fedora', 'OracleLinux']
 
   - name: Open HTTP port
     ansible.posix.firewalld:
