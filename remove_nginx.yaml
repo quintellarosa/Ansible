@@ -1,0 +1,33 @@
+---
+- hosts:       WebServers
+  become:      yes
+  tasks:
+
+  - name: Close HTTPS port
+    ansible.posix.firewalld:
+      state:     disabled
+      permanent: true
+      immediate: true
+      service:   https
+
+  - name: Close HTTP port
+    ansible.posix.firewalld:
+      state:     disabled
+      permanent: true
+      immediate: true
+      service:   http
+
+  - name: Disable Nginx
+    service:
+      name:    nginx
+      state:   stopped
+      enabled: no
+
+  - name: Uninstall Nginx
+    package:
+      name:   nginx
+      state:  absent
+
+
+
+

@@ -1,18 +1,29 @@
 ---
-- hosts:       webservers
+- hosts:       WebServers
   become:      yes
   tasks:
 
   - name: Install Nginx
-    package:
+    ansible.builtin.package:
       name:   nginx
       state:  present
 
   - name: Enable Nginx
-    service:
+    ansible.builtin.service:
       name:    nginx
       state:   started
       enabled: yes
+  
+  - name: Ensure firewall Python module is installed on managed hosts
+    ansible.builtin.package:
+      name: python3-firewall
+      state: present
+
+  - name: Ensure firewalld service is running and enabled
+    ansible.builtin.service:
+      name: firewalld
+      state: started
+      enabled: true
 
   - name: Open HTTP port
     ansible.posix.firewalld:
@@ -20,6 +31,8 @@
       permanent: true
       immediate: true
       service:   http
+    notify:
+        - Reload firewalld
 
   - name: Open HTTPS port
     ansible.posix.firewalld:
@@ -27,3 +40,9 @@
       permanent: true
       immediate: true
       service:   https
+    notify:
+        - Reload firewalld
+
+  handlers:
+    - name: Reload firewalld
+      ansible.builtin.command: firewall-cmd --reload

@@ -127,40 +127,66 @@ all:
         #         version:                Windows Server 2025 Standard
         #         image:                  Windows_Server_2025_Standard.iso
 
+        # Application Servers
+        AppServers:
+          hosts:
 
-        # # Database Servers
-        # databases:
-        #   hosts:
+            # Application Servers
+            AWX:
+              ansible_host:             lnxorclappawx.quintellarosa.home
+              provisioning:    
+                type:                   virtual
+                cloud:                  local
+                virtualization:         KVM
+                virtualization_server:  precision.quintellarosa.home
+              cpu:
+                sockets:                1
+                cores:                  2
+                threads:                2
+              memory:
+                size_gb:                4
+              storage:
+                - type:                 QCOW2
+                  size_gb:              25
+                  mount:                /
+              network:
+                - mac_address:          00:11:11:00:00:1F # 31
+                  ip_address:           192.168.122.31
 
-        #     # PostgreSQL
-        #     PostgreSQL01:
-        #       ansible_host:             lnxorcldbpgsql1.quintellarosa.home
-        #       provisioning:    
-        #         type:                   virtual
-        #         cloud:                  local
-        #         virtualization:         KVM
-        #         virtualization_server:  precision.quintellarosa.home
-        #       cpu:
-        #         sockets:                1
-        #         cores:                  2
-        #         threads:                4
-        #       memory:
-        #         size_gb:                4
-        #       storage:
-        #         - type:                 QCOW2
-        #           size_gb:              25
-        #           mount:                /
-        #       network:
-        #         - mac_address:          00:11:11:00:00:29 # 41
-        #           ip_address:           192.168.122.41
-        #       os:
-        #         type:                   Linux
-        #         name:                   Oracle Linux
-        #         version:                Oracle Linux 10
-        #         image:                  Oracle_Linux_10.iso
+
+        # Database Servers
+        DBServers:
+          hosts:
+
+            # PostgreSQL
+            PostgreSQL01:
+              ansible_host:             lnxorcldbpgsql.quintellarosa.home
+              provisioning:    
+                type:                   virtual
+                cloud:                  local
+                virtualization:         KVM
+                virtualization_server:  precision.quintellarosa.home
+              cpu:
+                sockets:                1
+                cores:                  2
+                threads:                4
+              memory:
+                size_gb:                4
+              storage:
+                - type:                 QCOW2
+                  size_gb:              25
+                  mount:                /
+              network:
+                - mac_address:          00:11:11:00:00:29 # 41
+                  ip_address:           192.168.122.41
+              os:
+                type:                   Linux
+                name:                   Oracle Linux
+                version:                Oracle Linux 10
+                image:                  Oracle_Linux_10.iso
 
         #     PostgreSQL02:
-        #       ansible_host:             lnxubntdbpgsql2.quintellarosa.home
+        #       ansible_host:             lnxubntdbpgsql.quintellarosa.home
         #       provisioning:    
         #         type:                   virtual
         #         cloud:                  local
@@ -399,7 +425,7 @@ all:
 
 
         # # Kubernetes Cluster Nodes
-        # kubernetes:
+        # Kubernetes:
         #   hosts:
 
         #     # Kubernetes Control Plane Nodes
@@ -666,7 +692,7 @@ all:
 
 
         # Web Servers
-        webservers:
+        WebServers:
           hosts:
 
             # Web Servers

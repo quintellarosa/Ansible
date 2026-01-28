@@ -1,7 +1,5 @@
 ---
-- hosts: 
-  - lnxorclwebglpi.quintellarosa.home
-  - lnxubntwebbkstg.quintellarosa.home
+- hosts: all
   gather_facts: yes
   become: yes
   tasks:
