@@ -1,8 +1,7 @@
 ---
 - hosts: 
-  - OracleLinux
-  - Ubuntu
-  - Fedora  
+  - lnxorclwebglpi.quintellarosa.home
+  - lnxubntwebbkstg.quintellarosa.home
   gather_facts: yes
   become: yes
   tasks:
