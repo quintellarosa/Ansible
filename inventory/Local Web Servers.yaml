@@ -1,0 +1,96 @@
+---
+
+all:
+  children:
+
+    Local:
+      
+      children:
+
+        WebServers:
+          hosts:
+
+            # GLPI IT Service Management (ITSM) Web Server
+            LnxOrclWebGLPI:
+              ansible_host:                                 192.168.122.71
+              host_name:                                    LnxOrclWebGLPI
+              hardware:
+                type:                                       virtual
+                firmware:                                   UEFI
+                chipset:                                    Q35
+                cpu:
+                  configuration:                            host-passthrough
+                  topology:
+                    sockets:                                1
+                    cores:                                  1
+                    threads:                                2
+                memory:
+                  size_gb:                                  2
+                  shared:                                   true
+                storage:
+                  - type:                                   VirtIO
+                    source_path:                            /var/lib/libvirt/images/LnxOrclWebGLPI.qcow2
+                    size_gb:                                25
+                    partitioning_scheme:                    GPT
+                    partitions:
+                      - label:                              EFI System Partition
+                        size_gb:                            0.05
+                        filesystem:                         FAT32
+                        mount:                              /boot/efi
+                        flags:                              [ boot, esp ]
+                      - label:                              System
+                        size_gb:                            24.5
+                        filesystem:                         xfs
+                        mount:                              /
+                network:
+                  - mac_address:                            00:11:11:00:00:47 # 71
+              software:
+                os:
+                  type:                                     Linux
+                  name:                                     Oracle Linux
+                  version:                                  Oracle Linux 10 Update 1
+                  image:                                    Oracle_Linux_10_Update_1.iso
+                packages:                                   [ httpd, mariadb-server, php, php-mysql, php-gd, php-xml, php-mbstring, php-curl, php-ldap, php-zip, php-intl, wget ]
+
+
+            # Backstage.io Framework for Developer Portals Web Server
+            LnxUbntWebBkstg:
+              ansible_host:                                 192.168.122.72
+              host_name:                                    LnxUbntWebBkstg
+              hardware:
+                type:                                       virtual
+                firmware:                                   UEFI
+                chipset:                                    Q35
+                cpu:
+                  configuration:                            host-passthrough
+                  topology:
+                    sockets:                                1
+                    cores:                                  1
+                    threads:                                2
+                memory:
+                  size_gb:                                  2
+                  shared:                                   true
+                storage:
+                  - type:                                   VirtIO
+                    source_path:                            /var/lib/libvirt/images/LnxUbntWebBkstg.qcow2
+                    size_gb:                                25
+                    partitioning_scheme:                    GPT
+                    partitions:
+                      - label:                              EFI System Partition
+                        size_gb:                            0.05
+                        filesystem:                         FAT32
+                        mount:                              /boot/efi
+                        flags:                              [ boot, esp ]
+                      - label:                              System
+                        size_gb:                            24.5
+                        filesystem:                         xfs
+                        mount:                              /
+                network:
+                  - mac_address:                            00:11:11:00:00:48 # 72
+              software:
+                os:
+                  type:                                     Linux
+                  name:                                     Ubuntu Server
+                  version:                                  Ubuntu Server 24.04 LTS
+                  image:                                    Ubuntu_Server_24.04_LTS.iso
+                packages:                                   [ apache2, mariadb-server, php, php-mysql, php-gd, php-xml, php-mbstring, php-curl, php-ldap, php-zip, php-intl, wget ]

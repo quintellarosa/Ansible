@@ -1,0 +1,53 @@
+---
+
+all:
+  children:
+
+    Local:
+      
+      children:
+
+        DomainControllers:
+          hosts:
+
+            DomainController:
+              ansible_host:                                 192.168.122.2
+              host_name:                                    Win2025DC01
+              hardware:
+                type:                                       virtual
+                firmware:                                   UEFI
+                chipset:                                    Q35
+                cpu:
+                  configuration:                            host-passthrough
+                  sockets:                                  1
+                  cores:                                    2
+                  threads:                                  2
+                memory:
+                  size_gb:                                  8
+                  shared:                                   false
+                storage:
+                  - type:                                   SSD # PCI Passthrough
+                    size_gb:                                476.92
+                    partitioning_scheme:                    GPT
+                    partitions:
+                      - label:                              EFI System Partition
+                        size_gb:                            0.1
+                        filesystem:                         FAT32
+                        flags:                              [ esp ]
+                      - label:                              System
+                        size_gb:                            476
+                        filesystem:                         NTFS
+                        mount:                              C:\
+                        flags:                              [ boot, msftdata ]
+                      - label:                              Recovery Partition
+                        size_gb:                            0.82
+                        filesystem:                         NTFS
+                        flags:                              [ hidden, recovery, msftdata ]                      
+                network:
+                  - mac_address:                            00:11:11:00:00:02 # 02
+              software:
+                os:
+                  type:                                     Windows
+                  name:                                     Windows Server
+                  version:                                  Windows Server 2025 Standard
+                  image:                                    Windows_Server_2025_Standard.iso

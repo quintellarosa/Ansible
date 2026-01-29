@@ -1,0 +1,53 @@
+---
+
+all:
+  children:
+
+    Local:
+      
+      children:
+
+        DatabaseServers:
+          hosts:
+
+            # PostgreSQL Database Server
+            LnxOrclDBPgSQL:
+              ansible_host:                                 192.168.122.31
+              host_name:                                    LnxOrclDBPgSQL
+              hardware:
+                type:                                       virtual
+                firmware:                                   UEFI
+                chipset:                                    Q35
+                cpu:
+                  configuration:                            host-passthrough
+                  topology:
+                    sockets:                                1
+                    cores:                                  2
+                    threads:                                2
+                memory:
+                  size_gb:                                  4
+                  shared:                                   true
+                storage:
+                  - type:                                   VirtIO
+                    source_path:                            /var/lib/libvirt/images/LnxOrclDBPgSQL.qcow2
+                    size_gb:                                25
+                    partitioning_scheme:                    GPT
+                    partitions:
+                      - label:                              EFI System Partition
+                        size_gb:                            0.05
+                        filesystem:                         FAT32
+                        mount:                              /boot/efi
+                        flags:                              [ boot, esp ]
+                      - label:                              System
+                        size_gb:                            24.5
+                        filesystem:                         xfs
+                        mount:                              /
+                network:
+                  - mac_address:                            00:11:11:00:00:1F # 31
+              software:
+                os:
+                  type:                                     Linux
+                  name:                                     Oracle Linux
+                  version:                                  Oracle Linux 10 Update 1
+                  image:                                    Oracle_Linux_10_Update_1.iso
+                packages:                                   [ postgresql-server, postgresql-contrib ]
