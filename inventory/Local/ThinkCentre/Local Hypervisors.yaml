@@ -1,0 +1,155 @@
+---
+
+all:
+  children:
+
+    Local:
+      
+      vars:
+        domain:                                            quintellarosa.home
+        dhcp_server:                                       192.168.122.1
+        dns_server:                                        192.168.122.1
+
+      children:
+
+        Hypervisors:
+          hosts:
+
+            Precision7550:
+              ansible_host:                                 192.168.122.1
+              host_name:                                    ThinkCentre
+              hardware:
+                type:                                       physical
+                firmware:                                   UEFI
+                chipset:                                    WM490
+                cpu:
+                  processor:
+                    architecture:                           x86_64
+                    vendor:                                 Intel
+                    model:                                  Xeon W-10855M
+                    dies:                                   1
+                    cache_size_mb:                          12
+                    performance_cores:
+                      total_cores:                          6
+                      total_threads:                        12
+                      base_frequency_mhz:                   2800
+                      max_frequency_mhz:                    4900
+                    efficiency_cores:
+                      total_cores:                          0
+                      total_threads:                        0
+                      base_frequency_mhz:                   0
+                      max_frequency_mhz:                    0
+                  topology:
+                    sockets:                                1
+                    cells:                        
+                      - id:                                 0
+                        cpus:                            
+                        - id:                               0
+                          socket_id:                        0
+                          die_id:                           0
+                          core_id:                          0
+                          type:                             performance
+                        - id:                               1
+                          socket_id:                        0
+                          die_id:                           0
+                          core_id:                          0
+                          type:                             performance
+                        - id:                               2
+                          socket_id:                        0
+                          die_id:                           0
+                          core_id:                          1
+                          type:                             performance
+                        - id:                               3
+                          socket_id:                        0
+                          die_id:                           0
+                          core_id:                          1
+                          type:                             performance
+                        - id:                               4
+                          socket_id:                        0
+                          die_id:                           0
+                          core_id:                          2
+                          type:                             performance
+                        - id:                               5
+                          socket_id:                        0
+                          die_id:                           0
+                          core_id:                          2
+                          type:                             performance
+                        - id:                               6
+                          socket_id:                        0
+                          die_id:                           0
+                          core_id:                          3
+                          type:                             performance
+                        - id:                               7
+                          socket_id:                        0
+                          die_id:                           0
+                          core_id:                          3
+                          type:                             performance
+                        - id:                               8
+                          socket_id:                        0
+                          die_id:                           0
+                          core_id:                          4
+                          type:                             performance
+                        - id:                               9
+                          socket_id:                        0
+                          die_id:                           0
+                          core_id:                          4
+                          type:                             performance
+                        - id:                               10
+                          socket_id:                        0
+                          die_id:                           0
+                          core_id:                          5
+                          type:                             performance
+                        - id:                               11
+                          socket_id:                        0
+                          die_id:                           0
+                          core_id:                          5
+                          type:                             performance
+                memory:
+                  type:                                SODIMM
+                  form_factor:                         DDR4
+                  speed_mhz:                           2933
+                  size_gb:                             64
+                storage:
+                  - type:                              SSD
+                    model:                             NVMe Samsung 970 EVO
+                    size_gb:                           500
+                    partitioning_scheme:               GPT
+                    device:                            /dev/nvme1n1
+                    partitions:
+                      - type:                          EFI System Partition
+                        size_gb:                       0.05
+                        device:                        /dev/nvme1n1p1
+                        file_system_type:              vfat
+                        mount:                         /boot/efi
+                        flags:                         [ boot, esp ]
+                      - type:                          Linux Filesystem
+                        size_gb:                       500 # Remaining space
+                        device:                        /dev/nvme1n1p2
+                        file_system_type:              xfs
+                        mount:                         /
+                  - type:                              SSD
+                    model:                             NVMe AData Legend 710
+                    size_gb:                           512
+                    partitioning_scheme:               GPT
+                    device:                            /dev/nvme2n1
+                    partitions:
+                      - type:                          Linux Filesystem
+                        size_gb:                       512 # Full disk
+                        device:                        /dev/nvme2n1p1
+                        file_system_type:              xfs
+                        mount:                         /home
+                network:
+                  - bridge:                            virbr0
+              software:
+                os:
+                  type:                                     Linux
+                  name:                                     Linux Mint
+                  version:                                  22.1
+                  image:                                    Linux-Mint-22.1-x86_64.iso
+                packages:
+                  - name:                                   qemu-kvm
+                  - name:                                   libvirt-daemon-system
+                  - name:                                   libvirt-clients
+                  - name:                                   bridge-utils
+                  - name:                                   virtinst
+                  - name:                                   virt-manager
