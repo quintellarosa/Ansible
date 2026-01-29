@@ -144,12 +144,6 @@ all:
                 os:
                   type:                                     Linux
                   name:                                     Linux Mint
-                  version:                                  22.1
-                  image:                                    Linux-Mint-22.1-x86_64.iso
-                packages:
-                  - name:                                   qemu-kvm
-                  - name:                                   libvirt-daemon-system
-                  - name:                                   libvirt-clients
-                  - name:                                   bridge-utils
-                  - name:                                   virtinst
-                  - name:                                   virt-manager
+                  version:                                  22.3
+                  image:                                    Linux-Mint-22.3-x86_64.iso
+                packages:                                   [ qemu-system-x86, libvirt-daemon-system, virtinst, virt-manager, virt-viewer, ovmf, swtpm, qemu-utils, guestfs-tools, libosinfo-bin, tuned]
