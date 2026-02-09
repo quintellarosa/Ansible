@@ -1,0 +1,22 @@
+---
+
+- hosts: WebServers
+  become: yes
+  gather_facts: false
+  
+  vars:
+    motd_message: |
+      Welcome to the server!
+      Have a great day!
+
+  tasks:
+    - name: Set custom message of the day
+      copy:
+        dest: /etc/motd
+        content: "{{ motd_message }}"
+      notify: MOTD Updated
+
+  handlers:
+    - name: MOTD Updated
+      debug:
+        msg: "The message of the day has been updated."

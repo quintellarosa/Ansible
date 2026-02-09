@@ -1,0 +1,27 @@
+---
+
+- hosts: Precision7550
+  gather_facts: false
+  tasks:
+
+    - name: Get list of all VMs
+      community.libvirt.virt:
+        command: list_vms
+        uri: "qemu:///system"
+      register: all_vms
+
+    - name: Get VM facts
+      community.libvirt.virt:
+        command: get_xml
+        name: "{{ item }}"
+        uri: "qemu:///system"
+      loop: "{{ all_vms.list_vms }}"
+      register: vm_facts
+
+    - name: Start shutdown VMs
+      community.libvirt.virt:
+        command: start
+        name: "{{ item.item }}"
+        uri: "qemu:///system"
+      loop: "{{ vm_facts.results }}"
+      when: "'shut off' in item.get_xml"

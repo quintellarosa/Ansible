@@ -1,5 +1,24 @@
 ---
 
+# Ansible Inventory File
+
+# Naming syntax for host_name:
+#
+# OS Family(3) + OS Distribution or Windows Version(4) + Type(3) + Optional Description(5)
+#
+# where:
+# _ OS Family:                            Win = Windows, Lnx = Linux, Bsd = BSD
+# _ OS Distribution or Windows Version:   Ubnt = Ubuntu, Orcl = Oracle Linux, 2025 = Windows Server 2025
+# _ Type:                                 DmnCtrl1 = Domain Controller 1, Web = Web Server, DBP, DBO, DBM = Database Server, App = Application Server
+# _ Optional Description:                 5 character code indicating specific application or role PgSQL1 = PostgreSQL 1, AWX = Ansible AWX
+#
+# Examples:
+# _ Win2025DmnCtrl1    => Windows Server 2025 Domain Controller 1
+# _ LnxUbntWebBkstg    => Linux Ubuntu Web Server for Backstage.io
+# _ LnxOrclDBPgSQL1    => Linux Oracle Database Server for PostgreSQL 1
+# _ LnxOrclAppAWX      => Linux Oracle Application Server for Ansible AWX
+
+
 all:
   children:
 

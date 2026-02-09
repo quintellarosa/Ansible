@@ -12,7 +12,10 @@ all:
 
             DomainController:
               ansible_host:                                 192.168.122.2
-              host_name:                                    Win2025DC01
+              ansible_connection:                           winrm
+              ansible_user:                                 Administrator
+              ansible_password:                             Pi=3.1415926
+              host_name:                                    Win2025DmnCtrl1
               hardware:
                 type:                                       virtual
                 firmware:                                   UEFI

@@ -12,7 +12,7 @@ all:
 
             # PostgreSQL Database Server
             LnxOrclDBPgSQL:
-              ansible_host:                                 192.168.122.31
+              ansible_host:                                 192.168.122.41
               host_name:                                    LnxOrclDBPgSQL
               hardware:
                 type:                                       virtual

@@ -1,0 +1,7 @@
+---
+
+- hosts: all
+  tasks:
+    - name: Example task using a variable from vars_examples.yaml
+      debug:
+        msg: "{{ hostvars[ansible_hostname].hardware }}"

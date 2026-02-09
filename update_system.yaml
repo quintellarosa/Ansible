@@ -10,8 +10,8 @@
       when: ansible_os_family == "Debian"
 
     - name: Update package cache for Red Hat-based
-      sudo dnf:
-        update_cache: yes
+      dnf:
+        update_cache: true
       when: ansible_os_family == "RedHat"
 
     - name: Perform full system upgrade

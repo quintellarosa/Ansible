@@ -1,8 +1,5 @@
 ---
-- hosts: 
-  - OracleLinux
-  - Ubuntu
-  - Fedora  
+- hosts: all
   gather_facts: false
   become: yes
   tasks:

@@ -1,49 +1,60 @@
 ---
 - hosts:       WebServers
-  become:      yes
+  become:      true
   tasks:
 
-  - name: Install Nginx
+  - name: Install Apache and PHP for Ubuntu Servers
     ansible.builtin.package:
-      name:   nginx
-      state:  present
+      name:
+        - apache2
+        - libapache2-mod-php
+      state:  absent
+    when: ansible_distribution == 'Ubuntu'
 
-  - name: Enable Nginx
-    ansible.builtin.service:
-      name:    nginx
-      state:   started
-      enabled: yes
+  - name: Install Apache and PHP for RedHat Servers
+    ansible.builtin.package:
+      name:
+        - httpd
+        - php
+      state:  absent
+    when: ansible_distribution == 'OracleLinux' or ansible_distribution == 'RedHat' or ansible_distribution == 'CentOS' or ansible_distribution == 'Fedora'
+
+  # - name: Enable Nginx
+  #   ansible.builtin.service:
+  #     name:    nginx
+  #     state:   started
+  #     enabled: yes
   
-  - name: Ensure firewall Python module is installed on managed hosts
-    ansible.builtin.package:
-      name: python3-firewall
-      state: present
+  # - name: Ensure firewall Python module is installed on managed hosts
+  #   ansible.builtin.package:
+  #     name: python3-firewall
+  #     state: present
 
-  - name: Ensure firewalld service is running and enabled
-    ansible.builtin.service:
-      name: firewalld
-      state: started
-      enabled: true
-    when: ansible_distribution in ['CentOS', 'RedHat', 'Fedora', 'OracleLinux']
+  # - name: Ensure firewalld service is running and enabled
+  #   ansible.builtin.service:
+  #     name: firewalld
+  #     state: started
+  #     enabled: true
+  #   when: ansible_distribution in ['CentOS', 'RedHat', 'Fedora', 'OracleLinux']
 
-  - name: Open HTTP port
-    ansible.posix.firewalld:
-      state:     enabled
-      permanent: true
-      immediate: true
-      service:   http
-    notify:
-        - Reload firewalld
+  # - name: Open HTTP port
+  #   ansible.posix.firewalld:
+  #     state:     enabled
+  #     permanent: true
+  #     immediate: true
+  #     service:   http
+  #   notify:
+  #       - Reload firewalld
 
-  - name: Open HTTPS port
-    ansible.posix.firewalld:
-      state:     enabled
-      permanent: true
-      immediate: true
-      service:   https
-    notify:
-        - Reload firewalld
+  # - name: Open HTTPS port
+  #   ansible.posix.firewalld:
+  #     state:     enabled
+  #     permanent: true
+  #     immediate: true
+  #     service:   https
+  #   notify:
+  #       - Reload firewalld
 
-  handlers:
-    - name: Reload firewalld
-      ansible.builtin.command: firewall-cmd --reload
+  # handlers:
+  #   - name: Reload firewalld
+  #     ansible.builtin.command: firewall-cmd --reload

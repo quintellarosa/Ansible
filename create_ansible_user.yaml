@@ -1,0 +1,26 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+
+  - name: Create user ansible
+    user:
+      name: ansible
+      state: present
+      groups: root
+
+  - name: Add sudoers file for ansible user
+    copy:
+      dest: /etc/sudoers.d/ansible
+      content: "ansible ALL=(ALL) NOPASSWD: ALL\n"
+      owner: root
+      group: root
+      mode: '0440'
+
+  - name: Upload authorized key for ansible user
+    authorized_key:
+      user: ansible
+      state: present
+      key: "{{ lookup('file', '/home/quintellarosa/.ssh/authorized_keys') }}"
+    

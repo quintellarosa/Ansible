@@ -1,0 +1,17 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+
+  - name: Remove sudoers file for ansible user
+    file: 
+      path: /etc/sudoers.d/ansible
+      state: absent
+
+  - name: Remove user ansible
+    user:
+      name: ansible
+      state: absent
+      remove: yes
+      force: yes
